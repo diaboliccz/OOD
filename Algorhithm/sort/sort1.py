@@ -1,12 +1,18 @@
+def bubble_sort_recursive(arr, index=0, swapped=False):
+    if index == len(arr) - 1:
+        if not swapped:
+            return arr
+        else:
+            return bubble_sort_recursive(arr, 0, False)
+    else:
+        if arr[index] > arr[index + 1]:
+            arr[index], arr[index + 1] = arr[index + 1], arr[index]
+            return bubble_sort_recursive(arr, index + 1, True)
+        else:
+            return bubble_sort_recursive(arr, index + 1, swapped)
 
-def bubbleSort_recur(arr):
-    if len(arr) == 1:
-        return arr
-    for i in range(len(arr)-1):
-        if arr[i] > arr[i+1]:
-            arr[i],arr[i+1] = arr[i+1],arr[i]
-    return bubbleSort_recur(arr[:-1]) + [arr[-1]]
-
-inp = input('Enter Input : ').split(' ')
-inp = [int(i) for i in inp]
-print(bubbleSort_recur(inp))
+# Test the function
+inp = input("Enter Input : ").split()
+arr = list(map(int, inp))
+bubble_sort_recursive(arr)
+print(arr)

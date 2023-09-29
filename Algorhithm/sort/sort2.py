@@ -1,33 +1,21 @@
+def findMaxIndex_recursive(arr, start, end):
+    if start == end:
+        return start
+    else:
+        minIndex = findMaxIndex_recursive(arr, start+1, end)
+        return start if arr[start] > arr[minIndex] else minIndex
 
-def minIndex( a , i , j ):
-    if i == j:
-        return i
-    k = minIndex(a, i + 1, j)
-    return (i if a[i] < a[k] else k)
-
-# Recursive selection sort. n is
-# size of a[] and index is index of
-# starting element.
-def recurSelectionSort(a, n, index = 0):
-
-    # Return when starting and
-    # size are same
-    if index == n:
-        return -1
-
-    # calling minimum index function
-    # for minimum index
-    k = minIndex(a, index, n-1)
-
-    if k != index:
-        print(k, index)
-        print(f'swap {a[k]} <-> {a[index]} : {a}')
-        a[k], a[index] = a[index], a[k]
-
-    recurSelectionSort(a, n, index + 1)
-
+def selectionSort_recursive(arr, start, end):
+    if start == end:
+        return
+    else:
+        maxIndex = findMaxIndex_recursive(arr, start, end)
+        if maxIndex != end:
+            arr[maxIndex], arr[end] = arr[end], arr[maxIndex]
+            print(f'swap {arr[maxIndex]} <-> {arr[end]} : {arr}')
+        selectionSort_recursive(arr, start, end-1)
 
 inp = input('Enter Input : ').split(' ')
 inp = [int(i) for i in inp]
-recurSelectionSort(inp, len(inp))
+selectionSort_recursive(inp, 0, len(inp)-1)
 print(inp)
