@@ -1,3 +1,5 @@
+import networkx as nx
+import matplotlib.pyplot as plt
 class Vertex:
     __slots__ = '_element'
     
@@ -77,9 +79,48 @@ class Graph:
         e = Edge(u, v, x)
         self._outgoing[u][v] = e
         self._incoming[v][u] = e
+    
+    def adjacency_list(self):
+        return self._outgoing
+    
+    def adjacency_matrix(self):
+        vertices = list(self.vertices())
+        n = len(vertices)
+        matrix = [[0] * n for i in range(n)]
+        for v in vertices:
+            for e in self.incident_edges(v):
+                u = e.opposite(v)
+                matrix[vertices.index(v)][vertices.index(u)] = 1
+        return matrix
+    
+    def draw(self):
+        G = nx.Graph()
+        for v in self.vertices():
+            G.add_node(v.element())
+        for e in self.edges():
+            G.add_edge(e.endpoints()[0].element(), e.endpoints()[1].element(), label=e.element())
+        pos = nx.spring_layout(G)
+        nx.draw(G, pos, with_labels=True, font_weight='bold')
+        labels = nx.get_edge_attributes(G, 'label')
+        nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)
+        plt.show()
+    
+    def __str__(self):
+        for v in self.vertices():
+            print(v.element(), end=' -> ')
+            for e in self.incident_edges(v):
+                print(e.opposite(v).element() + '(' + str(e.element()) + ')', end=' ')
+            print()
+    
 
 G = Graph()
 u = G.insert_vertex('u')
 v = G.insert_vertex('v')
+w = G.insert_vertex('w')
+z = G.insert_vertex('z')
 G.insert_edge(u, v, 'e')
-print(G.vertex_count())
+G.insert_edge(u, w, 'g')
+G.insert_edge(v, w, 'f')
+G.insert_edge(w, z, 'h')
+m = G.adjacency_matrix()
+G.draw()

@@ -102,7 +102,7 @@ class BST:
                     temp = temp.left
                 root.data = temp.data
                 root.right = BST._deleteNodeS(root.right, temp.data)
-        return root  
+        return root
 
     def _deleteNodeP(root : Node, key : int) :
         if root is None : return root

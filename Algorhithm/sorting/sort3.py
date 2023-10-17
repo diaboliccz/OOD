@@ -18,7 +18,6 @@ def insertion_sort_recursive(arr_inp, index = 0, arr_out = []):
     else:
         if len(arr_out) == 0:
             arr_out.append(arr_inp[index])
-            # print("insert", arr_inp[index], "at index", index, ":", arr_out, arr_inp[index+1:])
         else:
             if arr_inp[index] < arr_out[0]:
                 arr_out.insert(0, arr_inp[index])
@@ -39,7 +38,7 @@ def insertion_sort_recursive(arr_inp, index = 0, arr_out = []):
                     print("insert", arr_inp[index], "at index", arr_out.index(closet)+1, ":", arr_out)
                 else:
                     print("insert", arr_inp[index], "at index", arr_out.index(closet)+1, ":", arr_out, arr_inp[index+1:])
-                
+
         return insertion_sort_recursive(arr_inp, index+1, arr_out)
 
 inp = input("Enter Input : ").split(" ")

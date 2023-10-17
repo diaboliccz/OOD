@@ -97,7 +97,6 @@ class BST:
             else:
                 self.insertNode(node.right, data)
     
-
     def printTree(self, node, level = 0):
         if node != None:
             self.printTree(node.right, level + 1)
